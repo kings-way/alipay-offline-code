@@ -4,8 +4,9 @@
 
 #### 1. Intro
 Alipay can generate offline code for people to use, and this feature is based on standard [HOTP](https://tools.ietf.org/html/rfc4226).
-After some reverse engineering work, we are able to reproduce the code anywhere, only if you get your own 'SEED'.
-(This is known to works with [Alipay_10.1.62.5549](https://www.apkmirror.com/apk/alipay-com/alipay/alipay-10-1-62-5549-release/alipay-10-1-62-5549-android-apk-download/))
+After some reverse engineering work, we are able to reproduce the six-num code anywhere, only if you get your own 'SEED'.
+
+(The frida script here is known to works with [Alipay_10.1.62.5549](https://www.apkmirror.com/apk/alipay-com/alipay/alipay-10-1-62-5549-release/alipay-10-1-62-5549-android-apk-download/))
 
 
 #### 2. How to run
@@ -14,7 +15,7 @@ After some reverse engineering work, we are able to reproduce the code anywhere,
 
 * 2.Run `python3 hook.py`, and get your own "INDEX" and "SEED" value.
 
-* 3.Set the 'INDEX' and 'SEED' value in gen_code.py
+* 3.Set the `INDEX` and `SEED` value in gen_code.py
 
 * 4.Run `python gen_code.py | qrencode -t utf8`, and enjoy it!
 
@@ -24,13 +25,13 @@ After some reverse engineering work, we are able to reproduce the code anywhere,
 
 * `nativeOTP()` exists in libAPSE.so, generate standard HOTP code
 
-* INDEX and SEED can be found encrypted in shared_prefs/MODE_*_SETTING_FILE.xml, please use `grep -ir SEEDSG .`
+* `INDEX` and `SEED` can be found encrypted in `shared_prefs/MODE_*_SETTING_FILE.xml`, please use `grep -ir SEEDSG .`
 
-* SEED has an expiration date(about 30days), and will be revoked right after app logout
+* `SEED` has an expiration date(about 30days), and will be revoked right after app logout
 
-* When requesting new SEED, it seems only has 20 bytes changed, left 20 bytes unchanged
+* When requesting new `SEED`, it seems only has 20 bytes changed, left 20 bytes unchanged
 
-* INDEX seems will not change as SEED renew
+* `INDEX` seems will not change as `SEED` renew
 
 #### 4. Refer
 
